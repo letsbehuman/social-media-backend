@@ -25,10 +25,11 @@
     ],
     "paths": {
       "@auth/*": ["src/features/auth/*"],
+      "@user/*": ["src/features/user/*"],
       "@global/*": ["src/shared/globals/*"],
       "@services/*": ["src/shared/services/*"],
       "@sockets/*": ["src/shared/sockets/*"],
-      "@worker/*": ["src/shared/worker/*"],
+      "@workers/*": ["src/shared/workers/*"],
       //the last paths for root otherwise will ignore other paths
       "@root/*": ["src/*"]
     }

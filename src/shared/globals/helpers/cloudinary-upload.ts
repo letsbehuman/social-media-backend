@@ -1,12 +1,11 @@
 import cloudinary, { UploadApiErrorResponse, UploadApiResponse } from 'cloudinary';
-import { TrigonometryExpressionOperator } from 'mongoose';
 
 export function uploads(
   file: string,
-  public_id?: TrigonometryExpressionOperator,
+  public_id?: string,
   overwrite?: boolean,
   invalidate?: boolean
-): Promise<UploadApiErrorResponse | UploadApiErrorResponse | undefined> {
+): Promise<UploadApiResponse | UploadApiErrorResponse | undefined> {
   return new Promise((resolve) => {
     cloudinary.v2.uploader.upload(
       file,
