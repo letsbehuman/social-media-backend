@@ -1,4 +1,10 @@
 export class Helpers {
+  //when we user static methods we do not have to create a instance of it.
+  //only
+  //Helper.firstLetterUppercase()
+  //instead of
+  // const helper= new Helpers()
+  //helper.firstLetterUppercase()
   static firstLetterUppercase(str: string): string {
     const valueString = str.toLocaleLowerCase();
     return valueString
@@ -18,11 +24,13 @@ export class Helpers {
     }
     return parseInt(result, 10);
   }
-}
 
-//when we user static methods we do not have to create a instance of it.
-//only
-//Helper.firstLetterUppercase()
-//instead of
-// const helper= new Helpers()
-//helper.firstLetterUppercase()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  static parseJson(prop: string): any {
+    try {
+      JSON.parse(prop);
+    } catch (error) {
+      return prop;
+    }
+  }
+}
