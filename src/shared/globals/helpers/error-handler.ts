@@ -1,5 +1,4 @@
 import HTTP_STATUS from 'http-status-codes';
-import { NoSubstitutionTemplateLiteral } from 'typescript';
 
 export interface IErrorResponse {
   message: string;

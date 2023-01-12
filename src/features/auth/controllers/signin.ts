@@ -1,3 +1,6 @@
+import { IResetPasswordParams } from './../../user/interfaces/user.interface';
+import { emailQueue } from '@services/queues/email.queue';
+import { forgotPasswordTemplate } from '@services/emails/templates/forgot-password/forgot-password-template';
 import { Request, Response } from 'express';
 import { config } from '@root/config';
 import JWT from 'jsonwebtoken';
@@ -9,6 +12,9 @@ import { signinSchema } from '@auth/schemas/signin';
 import { IAuthDocument } from '@auth/interfaces/auth.interface';
 import { userService } from '@services/db/user.services';
 import { IUserDocument } from '@user/interfaces/user.interface';
+import moment from 'moment';
+import publicIp from 'ip';
+import { resetPasswordTemplate } from '@services/emails/templates/reset-password/reset-password.tamplate';
 
 export class SignIn {
   @joiValidation(signinSchema)
@@ -34,6 +40,29 @@ export class SignIn {
       },
       config.JWT_TOKEN!
     );
+    // Testing confrimation Template
+    // const templateParams: IResetPasswordParams = {
+    //   username: existingUser.username!,
+    //   email: existingUser.email,
+    //   ipaddress: publicIp.address(),
+    //   date: moment().format('DD/MM/YYYY HH:mm')
+    // };
+    // const template: string = resetPasswordTemplate.passwordResetConfirmationTemplate(templateParams);
+    // emailQueue.addEmailJob('forgotPasswordEmail', {
+    //   template,
+    //   receiverEmail: 'selmer79@ethereal.email',
+    //   subject: 'Password reset confirmation'
+    // });
+
+    //testing reset password
+    // const resetLink = `${config.CLIENT_URL}/reset-password?tpken=12341245123`;
+    // const template: string = forgotPasswordTemplate.passwordResetTemplate(existingUser.username!, resetLink);
+    // emailQueue.addEmailJob('forgotPasswordEmail', {
+    //   template,
+    //   receiverEmail: 'selmer79@ethereal.email',
+    //   subject: 'Reset your password'
+    // });
+
     req.session = { jwt: userJwt };
     const userDocument: IUserDocument = {
       ...user,
