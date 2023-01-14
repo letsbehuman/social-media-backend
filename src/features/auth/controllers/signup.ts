@@ -58,7 +58,7 @@ export class SignUp {
 
     res
       .status(HTTP_STATUS.CREATED)
-      .json({ message: 'User created succesfully', user: userDataForCache, token: userJwt });
+      .json({ message: 'User created successfully', user: userDataForCache, token: userJwt });
   }
 
   private signupToken(data: IAuthDocument, userObjectId: ObjectId): string {
