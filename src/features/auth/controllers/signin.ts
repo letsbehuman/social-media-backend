@@ -1,4 +1,4 @@
-import { IResetPasswordParams } from './../../user/interfaces/user.interface';
+import { IResetPasswordParams } from '@user/interfaces/user.interface';
 import { emailQueue } from '@services/queues/email.queue';
 import { forgotPasswordTemplate } from '@services/emails/templates/forgot-password/forgot-password-template';
 import { Request, Response } from 'express';

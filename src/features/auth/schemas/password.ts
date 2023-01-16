@@ -4,7 +4,7 @@ const emailSchema: ObjectSchema = Joi.object().keys({
   email: Joi.string().required().email().messages({
     'string.base': 'Email must be of type string',
     'string.email': 'Email must be valid',
-    'string.empty': 'Email is required field'
+    'string.empty': 'Email is a required field'
   })
 });
 const passwordSchema: ObjectSchema = Joi.object().keys({
@@ -12,10 +12,10 @@ const passwordSchema: ObjectSchema = Joi.object().keys({
     'string.base': 'Password must be of type string',
     'string.min': 'Password must be between 4-8 characters',
     'string.max': 'Password must be between 4-8 characters',
-    'string.empty': 'Password is required field'
+    'string.empty': 'Password is a required field'
   }),
   confirmPassword: Joi.string().required().valid(Joi.ref('password')).messages({
-    'any.only': 'Password should match',
+    'any.only': 'Passwords should match',
     'any.required': 'Confirm password is a required field'
   })
 });

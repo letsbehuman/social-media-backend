@@ -14,6 +14,14 @@ jest.mock('@services/redis/user.cache');
 jest.mock('@global/helpers/cloudinary-upload');
 
 describe('SignUp', () => {
+  //Before and after methods are also usefull for data base or timers
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
   it('should throw an error if username is not available', () => {
     const req: Request = authMockRequest(
       {},
@@ -200,7 +208,7 @@ describe('SignUp', () => {
       .mockImplementation((): any => Promise.resolve({ version: '12312', public_id: '12341' }));
 
     await SignUp.prototype.create(req, res);
-    console.log(userSpy.mock);
+    // console.log(userSpy.mock);
 
     expect(req.session?.jwt).toBeDefined();
     expect(res.json).toHaveBeenCalledWith({

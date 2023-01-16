@@ -60,6 +60,6 @@ export class Password {
       receiverEmail: existingUser.email!,
       subject: 'Password reset confirmation'
     });
-    res.status(HTTP_STATUS.OK).json({ message: 'Password succcessfully updated.' });
+    res.status(HTTP_STATUS.OK).json({ message: 'Password successfully updated.' });
   }
 }
