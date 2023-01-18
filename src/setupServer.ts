@@ -14,6 +14,7 @@ import Logger from 'bunyan';
 import { config } from '@root/config';
 import applicationRoutes from '@root/routes';
 import { CustomError, IErrorResponse } from '@global/helpers/error-handler';
+import { SocketIOPostHandler } from '@sockets/post.socket';
 
 const SERVER_PORT = 5000;
 const log: Logger = config.createLogger('server'); //"server" will indentify where the log is coming from
@@ -101,7 +102,9 @@ export class ChattyServer {
       log.info(`Server running on port ${SERVER_PORT}`);
     });
   }
+
   private socketIOConnections(io: Server): void {
-    // ongamepadconnected.info('socketIOConnections');
+    const postSocketHandler: SocketIOPostHandler = new SocketIOPostHandler(io);
+    postSocketHandler.listen();
   }
 }
