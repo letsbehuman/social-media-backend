@@ -8,10 +8,25 @@ Accept: application/json
 withCredentials: true
 
 {
-    "post":"Second post",
-    "bgColor":"blue",
+    "post":"3 post",
+    "bgColor":"red",
     "privacy":"Private",
     "gifUrl":"",
     "profilePicture":"https://res.cloudinary.com/dol6oy4pb/image/upload/v1673195178/63baeea9d2525c544e7e3cd2",
-    "feelings":"happy"
+    "feelings":"angry"
+}
+####
+POST {{baseUrl}}/{{urlPath}}/post/image/post
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+    "post":"Post with image",
+    "bgColor":"blue",
+    "privacy":"public",
+    "gifUrl":"",
+    "profilePicture":"https://res.cloudinary.com/dol6oy4pb/image/upload/v1673195178/63baeea9d2525c544e7e3cd2",
+    "feelings":"happy",
+    "image": "data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAv/8A/AAfQ93I3uP+BiOh/AAA="
 }
