@@ -2,9 +2,10 @@ import { BaseCache } from '@services/redis/base.cache';
 import Logger from 'bunyan';
 import { config } from '@root/config';
 import { ServerError } from './../../globals/helpers/error-handler';
-import { IPostDocument, IReactions, ISavePostToCache } from '@post/interfaces/post.interface';
+import { IPostDocument, ISavePostToCache } from '@post/interfaces/post.interface';
 import { Helpers } from '@global/helpers/helpers';
 import { RedisCommandRawReply } from '@redis/client/dist/lib/commands';
+import { IReactions } from '@reactions/interfaces/reaction.interface';
 
 const log: Logger = config.createLogger('postCache');
 
@@ -97,7 +98,8 @@ export class PostCache extends BaseCache {
       if (!this.client.isOpen) {
         await this.client.connect();
       }
-      const reply: string[] = await this.client.ZRANGE(key, start, end, { REV: true }); // Reverse to get the lastest post first
+      const reply: string[] = await (await this.client.ZRANGE(key, start, end)).reverse(); // Reverse to get the lastest post first
+      // const reply: string[] = await this.client.ZRANGE(key, start, end, { REV: true }); // Reverse to get the lastest post first
       const multi: ReturnType<typeof this.client.multi> = this.client.multi();
 
       for (const value of reply) {
@@ -136,7 +138,7 @@ export class PostCache extends BaseCache {
       if (!this.client.isOpen) {
         await this.client.connect();
       }
-      const reply: string[] = await this.client.ZRANGE(key, start, end, { REV: true }); // Reverse to get the lastest post first
+      const reply: string[] = await (await this.client.ZRANGE(key, start, end)).reverse(); // Reverse to get the lastest post first
       const multi: ReturnType<typeof this.client.multi> = this.client.multi();
 
       for (const value of reply) {
