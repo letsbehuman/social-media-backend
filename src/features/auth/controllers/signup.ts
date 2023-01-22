@@ -38,6 +38,7 @@ export class SignUp {
       password,
       avatarColor
     });
+
     const result: UploadApiResponse = (await uploads(avatarImage, `${userObjectId}`, true, true)) as UploadApiResponse;
     if (!result?.public_id) {
       throw new BadRequestError('File upload: Error occurred. Try again.');
