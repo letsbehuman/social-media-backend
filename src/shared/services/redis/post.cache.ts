@@ -166,7 +166,7 @@ export class PostCache extends BaseCache {
       if (!this.client.isOpen) {
         await this.client.connect();
       }
-      const reply: string[] = await this.client.ZRANGE(key, uId, uId, { REV: true, BY: 'SCORE' }); // Getting all post from user- Reverse to get the lastest post first
+      const reply: string[] = await (await this.client.ZRANGE(key, uId, uId, { BY: 'SCORE' })).reverse(); // Getting all post from user- Reverse to get the lastest post first
       const multi: ReturnType<typeof this.client.multi> = this.client.multi();
 
       for (const value of reply) {
@@ -196,6 +196,26 @@ export class PostCache extends BaseCache {
       }
       const count: number = await this.client.ZCOUNT('post', uId, uId);
       return count;
+    } catch (error) {
+      log.error(error);
+      throw new ServerError('Server error. Try again.');
+    }
+  }
+
+  public async deletePostFromCache(key: string, currentUserId: string): Promise<void> {
+    try {
+      if (!this.client.isOpen) {
+        await this.client.connect();
+      }
+      const postCount: string[] = await this.client.HMGET(`users:${currentUserId}`, 'postsCount');
+      const multi: ReturnType<typeof this.client.multi> = this.client.multi();
+      multi.ZREM('post', `${key}`); //remove a member(value on redis) from the sorted set stored at key
+      multi.DEL(`posts:${key}`); //this will delete the hash from 'posts' key
+      multi.DEL(`comments:${key}`);
+      multi.DEL(`reactions:${key}`);
+      const count: number = parseInt(postCount[0], 10) - 1;
+      multi.HSET(`users:${currentUserId}`, ['postsCount', count]);
+      await multi.exec();
     } catch (error) {
       log.error(error);
       throw new ServerError('Server error. Try again.');
