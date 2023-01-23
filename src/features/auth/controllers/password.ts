@@ -1,4 +1,4 @@
-import { IResetPasswordParams } from './../../user/interfaces/user.interface';
+import { IResetPasswordParams } from '@user/interfaces/user.interface';
 import { forgotPasswordTemplate } from '@services/emails/templates/forgot-password/forgot-password-template';
 import moment from 'moment';
 import publicIp from 'ip';
