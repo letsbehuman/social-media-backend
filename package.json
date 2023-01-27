@@ -4,14 +4,14 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon ./build/app.js",
-    "dev": "nodemon -r tsconfig-paths/register src/app.ts | bunyan",
+    "start": "nodemon ./build/src/app.js | ./node_modules/.bin/bunyan",
+    "dev": "nodemon -r tsconfig-paths/register src/app.ts | ./node_modules/.bin/bunyan",
     "lint:check": "eslint \"src/**/*.ts\"",
     "lint:fix": "eslint \"src/**/*.ts\" --fix",
     "prettier:check": "prettier --check \"src/**/*.{ts,json}\"",
     "prettier:fix": "prettier --write \"src/**/*.{ts,json}\"",
     "test": "jest --covarage=true -w=1 --forceExit --detectOpenHandles --watchAll=false",
-    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json"
+    "build": "tsc --p"
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +24,7 @@
     "@types/jest": "^29.2.5",
     "bcryptjs": "^2.4.3",
     "bull": "^4.10.2",
+    "bullmq": "^3.5.11",
     "bunyan": "^1.8.15",
     "cloudinary": "^1.33.0",
     "compression": "^1.7.4",
@@ -44,6 +45,7 @@
     "mongoose": "^6.7.2",
     "nodemailer": "^6.8.0",
     "redis": "^4.5.0",
+    "redis-info": "^3.1.0",
     "redis-server": "^1.2.2",
     "socket.io": "^4.5.4",
     "tsc-alias": "^1.7.1",
