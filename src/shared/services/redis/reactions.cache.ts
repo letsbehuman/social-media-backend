@@ -30,7 +30,7 @@ export class ReactionCache extends BaseCache {
       }
 
       if (type) {
-        await this.client.LPUSH(`reactions:${key}`, JSON.stringify(reaction));
+        await this.client.LPUSH(`reactions:${key}`, JSON.stringify(reaction)); // LPUSH = add into a list from the left
         const dataToSave: string[] = ['reactions', JSON.stringify(postReactions)];
         await this.client.HSET(`posts:${key}`, dataToSave);
       }
@@ -45,12 +45,12 @@ export class ReactionCache extends BaseCache {
       if (!this.client.isOpen) {
         await this.client.connect();
       }
-      const response: string[] = await this.client.LRANGE(`reactions:${key}`, 0, -1);
+      const response: string[] = await this.client.LRANGE(`reactions:${key}`, 0, -1); //getting all data from a list in redis
       const multi: ReturnType<typeof this.client.multi> = this.client.multi();
       const userPreviousReaction: IReactionDocument = this.getPreviousReaction(response, username) as IReactionDocument;
-      multi.LREM(`reactions:${key}`, 1, JSON.stringify(userPreviousReaction));
+      multi.LREM(`reactions:${key}`, 1, JSON.stringify(userPreviousReaction)); // Removing a object
       await multi.exec();
-
+      //Updating the post info
       const dataToSave: string[] = ['reactions', JSON.stringify(postReactions)];
       await this.client.HSET(`posts:${key}`, dataToSave);
     } catch (error) {
