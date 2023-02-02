@@ -50,7 +50,7 @@ class ReactionService {
       )
     ]);
   }
-  public async getPostReaction(
+  public async getPostReactions(
     query: IQueryReaction,
     sort: Record<string, 1 | -1>
   ): Promise<[IReactionDocument[], number]> {
@@ -70,6 +70,7 @@ class ReactionService {
   }
 
   public async getReactionsByUsername(username: string): Promise<IReactionDocument[]> {
+    //we are getting this data from the database instead from the cache because it will take less time going through the collection of Reactions than seaching into the cache list
     const reactions: IReactionDocument[] = await ReactionModel.aggregate([
       { $match: { username: Helpers.firstLetterUppercase(username) } }
     ]);
