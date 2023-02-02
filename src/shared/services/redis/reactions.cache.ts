@@ -64,8 +64,8 @@ export class ReactionCache extends BaseCache {
       if (!this.client.isOpen) {
         await this.client.connect();
       }
-      const reactionsCount: number = await this.client.LLEN(`reactions:${postId}`);
-      const response: string[] = await this.client.LRANGE(`reactions:${postId}`, 0, -1);
+      const reactionsCount: number = await this.client.LLEN(`reactions:${postId}`); // Length of the list
+      const response: string[] = await this.client.LRANGE(`reactions:${postId}`, 0, -1); // getting all the list from a post reactions
       const list: IReactionDocument[] = [];
       for (const item of response) {
         list.push(Helpers.parseJson(item));
