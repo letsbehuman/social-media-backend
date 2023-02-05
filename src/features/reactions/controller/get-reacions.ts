@@ -16,10 +16,11 @@ export class GetReactions {
     const reactions: [IReactionDocument[], number] = cachedReactions[0].length
       ? cachedReactions
       : await reactionService.getPostReactions({ postId: new mongoose.Types.ObjectId(postId) }, { createdAt: -1 });
+
     res.status(HTTP_STATUS.OK).json({ message: 'Post reactions', reactions: reactions[0], count: reactions[1] });
   }
 
-  public async singleReactionsByUsername(req: Request, res: Response): Promise<void> {
+  public async singleReactionByUsername(req: Request, res: Response): Promise<void> {
     const { postId, username } = req.params;
     // check if there is reactions in cache otherwise get the data from the database
     const cachedReactions: [IReactionDocument, number] | [] = await reactionCache.getSingleReactionByUsernameFromCache(
@@ -33,6 +34,15 @@ export class GetReactions {
       message: 'Single post reaction by username',
       reactions: reactions.length ? reactions[0] : {},
       count: reactions.length ? reactions[1] : 0
+    });
+  }
+
+  public async reactionsByUsername(req: Request, res: Response): Promise<void> {
+    const { username } = req.params;
+    const reactions: IReactionDocument[] = await reactionService.getReactionsByUsername(username);
+    res.status(HTTP_STATUS.OK).json({
+      message: 'All reactions by username',
+      reactions
     });
   }
 }
