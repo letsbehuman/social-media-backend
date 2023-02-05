@@ -9,10 +9,10 @@ withCredentials: true
 
 {
     "userTo":"63baeea9d2525c544e7e3cd2",
-    "postId":"63c99d22c05e32fa9191cd40",
-    "type":"love",
+    "postId":"63dfb4e7d2262680f10e3e7a",
+    "type":"sad",
     "previousReaction":"",
-    "postReactions":	{"like":0,"love":1,"happy":0,"sad":0,"wow":0,"angry":0},
+    "postReactions":{"like":0,"love":0,"happy":0,"sad":1,"wow":0,"angry":0},
     "profilePicture":"https://res.cloudinary.com/dol6oy4pb/image/upload/v1673195178/63baeea9d2525c544e7e3cd2"
 }
 
@@ -21,3 +21,35 @@ GET {{baseUrl}}/{{urlPath}}/post/all/1
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
+
+####
+DELETE {{baseUrl}}/{{urlPath}}/post/reaction/63d69df93e96772942fb0d66/love/{"like":0,"love":0,"happy":0,"sad":0,"wow":0,"angry":0}
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+####
+GET {{baseUrl}}/{{urlPath}}/post/reactions/63d69df93e96772942fb0d66
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+
+
+####
+GET {{baseUrl}}/{{urlPath}}/post/single/reaction/username/mario/63d69df93e96772942fb0d66
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+####
+GET {{baseUrl}}/{{urlPath}}/post/reactions/username/mario
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}

@@ -1,3 +1,4 @@
+import { IReactionJob } from '@reactions/interfaces/reaction.interface';
 import Queue, { Job } from 'bull';
 import Logger from 'bunyan';
 import { createBullBoard } from '@bull-board/express';
@@ -8,7 +9,7 @@ import { IAuthJob } from '@auth/interfaces/auth.interface';
 import { IEmailJob } from '@user/interfaces/user.interface';
 import { IPostJobData } from '@post/interfaces/post.interface';
 
-type IBaseJobData = IAuthJob | IEmailJob | IPostJobData;
+type IBaseJobData = IAuthJob | IEmailJob | IPostJobData | IReactionJob;
 
 let bullAdapter: BullAdapter[] = [];
 
@@ -22,7 +23,7 @@ export abstract class BaseQueue {
     bullAdapter = [...new Set(bullAdapter)];
     serverAdapter = new ExpressAdapter();
     serverAdapter.setBasePath('/queues');
-
+    //BullDashbaord to see in the browser the status of the jobs, http://localhost:5000/queues/
     createBullBoard({
       queues: bullAdapter,
       serverAdapter
@@ -41,7 +42,7 @@ export abstract class BaseQueue {
   protected addJob(name: string, data: IBaseJobData): void {
     this.queue.add(name, data, { attempts: 3, backoff: { type: 'fixed', delay: 5000 } });
   }
-  //concurrency menas the amount of jobs that will work on it at the certain time
+  //concurrency means the amount of jobs that will work on it at the certain time
   protected processJob(name: string, concurrency: number, callback: Queue.ProcessCallbackFunction<void>): void {
     this.queue.process(name, concurrency, callback);
   }

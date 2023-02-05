@@ -1,10 +1,11 @@
-import { ObjectId } from 'mongodb';
-import { IReactionDocument } from './../interfaces/reaction.interface';
 import { Request, Response } from 'express';
+import { ObjectId } from 'mongodb';
 import HTTP_STATUS from 'http-status-codes';
 import { joiValidation } from '@global/decorators/joi-validation.decorators';
 import { addReactionSchema } from '@reactions/schemas/reactions.schemes';
+import { IReactionDocument, IReactionJob } from '@reactions/interfaces/reaction.interface';
 import { ReactionCache } from '@services/redis/reactions.cache';
+import { reactionQueue } from '@services/queues/reactions.queue';
 
 const reactionCache: ReactionCache = new ReactionCache();
 
@@ -21,6 +22,17 @@ export class AddReactions {
       profilePicture
     } as IReactionDocument;
     await reactionCache.savePostReactionToCache(postId, reactionObject, postReactions, type, previousReaction);
+
+    const databaseReactionData: IReactionJob = {
+      postId,
+      userTo,
+      userFrom: req.currentUser!.userId,
+      username: req.currentUser!.username,
+      type,
+      previousReaction,
+      reactionObject
+    };
+    reactionQueue.addReactionJob('addReactionToDB', databaseReactionData);
     res.status(HTTP_STATUS.OK).json({ message: 'Reaction added successfully' });
   }
 }

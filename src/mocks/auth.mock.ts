@@ -58,7 +58,7 @@ export const authUserPayload: AuthPayload = {
   username: 'Manny',
   email: 'manny@me.com',
   avatarColor: '#9c27b0',
-  iat: 12345
+  iat: 12345 //timestamp
 };
 
 export const authMock = {
