@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { IQueryReaction } from '@reactions/interfaces/reaction.interface';
 import { IPostDocument } from '@post/interfaces/post.interface';
 import { IReactionDocument } from '@reactions/interfaces/reaction.interface';
