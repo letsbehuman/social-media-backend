@@ -1,3 +1,4 @@
+import { ICommentJob } from '@comments/interfaces/comment.interface';
 import { IReactionJob } from '@reactions/interfaces/reaction.interface';
 import Queue, { Job } from 'bull';
 import Logger from 'bunyan';
@@ -9,7 +10,7 @@ import { IAuthJob } from '@auth/interfaces/auth.interface';
 import { IEmailJob } from '@user/interfaces/user.interface';
 import { IPostJobData } from '@post/interfaces/post.interface';
 
-type IBaseJobData = IAuthJob | IEmailJob | IPostJobData | IReactionJob;
+type IBaseJobData = IAuthJob | IEmailJob | IPostJobData | IReactionJob | ICommentJob;
 
 let bullAdapter: BullAdapter[] = [];
 

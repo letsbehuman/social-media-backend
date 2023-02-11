@@ -6,11 +6,11 @@ import { ServerError } from '@global/helpers/error-handler';
 import { Helpers } from '@global/helpers/helpers';
 import { find } from 'lodash';
 
-const log: Logger = config.createLogger('commentsCache');
+const log: Logger = config.createLogger('commentCache');
 
-export class CommentsCache extends BaseCache {
+export class CommentCache extends BaseCache {
   constructor() {
-    super('commentsCache');
+    super('commentCache');
   }
 
   public async savePostCommentToCache(postId: string, value: string): Promise<void> {
