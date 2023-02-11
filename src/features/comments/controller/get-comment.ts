@@ -31,14 +31,10 @@ export class GetComment {
 
   public async singleComment(req: Request, res: Response): Promise<void> {
     const { postId, commentId } = req.params;
-    // const cachedComment: ICommentDocument[] = await commentCache.getSingleCommentFromCache(postId, commentId);
-    // const comment: ICommentDocument[] = cachedComment.length
-    //   ? cachedComment
-    //   : await commentService.getPostComments({ _id: new mongoose.Types.ObjectId(commentId) }, { createdAt: -1 });
-    const comment: ICommentDocument[] = await commentService.getPostComments(
-      { _id: new mongoose.Types.ObjectId(commentId) },
-      { createdAt: -1 }
-    );
+    const cachedComment: ICommentDocument[] = await commentCache.getSingleCommentFromCache(postId, commentId);
+    const comment: ICommentDocument[] = cachedComment.length
+      ? cachedComment
+      : await commentService.getPostComments({ _id: new mongoose.Types.ObjectId(commentId) }, { createdAt: -1 });
 
     res.status(HTTP_STATUS.OK).json({ message: 'Single comment', comments: comment[0] });
   }

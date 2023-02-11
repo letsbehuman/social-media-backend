@@ -1,5 +1,5 @@
 import { ICommentNameList } from '@comments/interfaces/comment.interface';
-import { IQueryComment } from './../../../features/comments/interfaces/comment.interface';
+import { IQueryComment } from '@comments/interfaces/comment.interface';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ICommentDocument, ICommentJob } from '@comments/interfaces/comment.interface';
 import { CommentsModel } from '@comments/models/comment.schema';
