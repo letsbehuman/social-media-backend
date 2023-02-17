@@ -6,6 +6,7 @@ import { currentUserRoutes } from '@auth/routes/currentRoutes';
 import { authMiddleware } from '@global/helpers/auth-middleware';
 import { reactionsRoutes } from '@reactions/routes/reactionsRoutes';
 import { commentRoutes } from '@comments/routes/commentRoutes';
+import { followerRoutes } from '@followers/routes/followerRoutes';
 
 const BASE_PATH = '/api/v1';
 
@@ -19,6 +20,7 @@ export default (app: Application) => {
     app.use(BASE_PATH, authMiddleware.verifyUser, postRoutes.routes());
     app.use(BASE_PATH, authMiddleware.verifyUser, reactionsRoutes.routes());
     app.use(BASE_PATH, authMiddleware.verifyUser, commentRoutes.routes());
+    app.use(BASE_PATH, authMiddleware.verifyUser, followerRoutes.routes());
   };
   routes();
 };
