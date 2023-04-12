@@ -2,12 +2,20 @@
 @urlPath = api/v1
 
 ####
-PUT {{baseUrl}}/{{urlPath}}/user/follow/63fa43ce3187809d9aa63027
+PUT {{baseUrl}}/{{urlPath}}/user/follow/6436f9d14337cece13f23602
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
 
 {
-    "password":"654321",
-    "confirmPassword":"654321"
 }
+
+
+# followingId/currentUserId
+###
+PUT {{baseUrl}}/{{urlPath}}/user/unfollow/6436f9d14337cece13f23602/6436f9df4337cece13f23609
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
