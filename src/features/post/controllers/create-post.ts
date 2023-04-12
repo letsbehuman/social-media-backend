@@ -18,6 +18,7 @@ export class Create {
   public async post(req: Request, res: Response): Promise<void> {
     const { post, bgColor, privacy, gifUrl, profilePicture, feelings } = req.body;
     const postObjectId: ObjectId = new ObjectId();
+    console.log(req.currentUser?.userId);
     const createdPost: IPostDocument = {
       _id: postObjectId,
       userId: req.currentUser!.userId,

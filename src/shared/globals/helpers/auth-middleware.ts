@@ -1,4 +1,4 @@
-import { NotAuthorizedError } from './error-handler';
+import { NotAuthorizedError } from '@global/helpers/error-handler';
 import { Request, Response, NextFunction } from 'express';
 import JWT from 'jsonwebtoken';
 import { config } from '@root/config';

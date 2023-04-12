@@ -24,6 +24,7 @@ export class SignIn {
     if (!existingUser) {
       throw new BadRequestError('Invalid credentials');
     }
+    console.log(req.currentUser);
 
     const passwordsMatch: boolean = await existingUser.comparePassword(password);
     if (!passwordsMatch) {

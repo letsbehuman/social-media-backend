@@ -44,12 +44,12 @@ export class SignUp {
       throw new BadRequestError('File upload: Error occurred. Try again.');
     }
 
-    //add to redis cache
+    //** add to redis cache */
     const userDataForCache: IUserDocument = SignUp.prototype.userData(authData, userObjectId);
     userDataForCache.profilePicture = `https://res.cloudinary.com/dol6oy4pb/image/upload/v${result.version}/${userObjectId}`;
     await userCache.saveUserToCache(`${userObjectId}`, uId, userDataForCache);
 
-    //add to database
+    //** add to database *//
     omit(userDataForCache, ['uId', 'username', 'email', 'avatarColor', 'password']);
     authQueue.addAuthUserJob('addAuthUserToDB', { value: authData });
     userQueue.addUserJob('addUserToDB', { value: userDataForCache });
@@ -99,9 +99,9 @@ export class SignUp {
       profilePicture: '',
       blocked: [],
       blockedBy: [],
-      work: '',
+      // work: '',
       location: '',
-      school: '',
+      // school: '',
       quote: '',
       bgImageVersion: '',
       bgImageId: '',
