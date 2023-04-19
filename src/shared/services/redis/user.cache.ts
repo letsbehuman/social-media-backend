@@ -1,4 +1,4 @@
-import { ServerError } from './../../globals/helpers/error-handler';
+import { ServerError } from '@global/helpers/error-handler';
 import { IUserDocument } from '@user/interfaces/user.interface';
 import { BaseCache } from '@services/redis/base.cache';
 import Logger from 'bunyan';

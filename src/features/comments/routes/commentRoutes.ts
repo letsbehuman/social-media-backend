@@ -1,4 +1,4 @@
-import { AddComment } from './../controller/add-comment';
+import { AddComment } from '@comments/controller/add-comment';
 import { authMiddleware } from '@global/helpers/auth-middleware';
 import express, { Router } from 'express';
 import { GetComment } from '@comments/controller/get-comment';

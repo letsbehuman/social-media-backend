@@ -33,14 +33,14 @@ export interface IFollowerData {
 }
 
 export interface IFollowerJobData {
-  keyOne?: string;
-  keyTwo?: string;
+  followeeId?: string;
+  followerId?: string;
   username?: string;
   followerDocumentId?: ObjectId;
 }
 
 export interface IBlockedUserJobData {
-  keyOne?: string;
-  keyTwo?: string;
+  followeeId?: string;
+  followerId?: string;
   type?: string;
 }
