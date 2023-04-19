@@ -1,7 +1,7 @@
 @baseUrl = http://localhost:5000
 @urlPath = api/v1
 
-####
+###
 POST {{baseUrl}}/{{urlPath}}/post/comment
 Content-Type: application/json
 Accept: application/json
@@ -14,19 +14,19 @@ withCredentials: true
     "comment":"this is the tird comment"
 }
 
-####
+###
 GET {{baseUrl}}/{{urlPath}}/post/comments/names/63d69df93e96772942fb0d66
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
 
-####
+###
 GET {{baseUrl}}/{{urlPath}}/post/single/comment/63d69df93e96772942fb0d66/63e7dd9262b35e690c333839
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
 
-####
+###
 GET {{baseUrl}}/{{urlPath}}/post/comments/63d69df93e96772942fb0d66
 Content-Type: application/json
 Accept: application/json
