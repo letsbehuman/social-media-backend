@@ -1,3 +1,4 @@
+import { AddUser } from '@followers/controller/block-user';
 import { AddFollow } from '@followers/controller/follower-user';
 import { GetFollower } from '@followers/controller/get-followers';
 import { RemoveFollow } from '@followers/controller/unfollow-user';
@@ -10,6 +11,9 @@ class FollowerRoutes {
     this.router = express.Router();
   }
   public routes(): Router {
+    this.router.put('/user/block/:followerId', authMiddleware.checkAuthentication, AddUser.prototype.block);
+    this.router.put('/user/unblock/:followerId', authMiddleware.checkAuthentication, AddUser.prototype.unblock);
+
     this.router.put('/user/follow/:followerId', authMiddleware.checkAuthentication, AddFollow.prototype.follower);
     this.router.put(
       '/user/unfollow/:followeeId/:followerId',
