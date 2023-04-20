@@ -1,6 +1,6 @@
 import { UserModel } from '@user/models/user.schema';
 import mongoose from 'mongoose';
-import { PushOperator, PullOperator } from 'mongodb';
+import { PushOperator } from 'mongodb';
 
 class BlockUserService {
   public async blockUser(userId: string, followerId: string): Promise<void> {
@@ -9,7 +9,9 @@ class BlockUserService {
         updateOne: {
           filter: { _id: userId, blocked: { $ne: new mongoose.Types.ObjectId(followerId) } }, //here first check if blocked exist and if it not create it
           update: {
-            $push: { blocked: new mongoose.Types.ObjectId(followerId) } as PushOperator<Document>
+            $push: {
+              blocked: new mongoose.Types.ObjectId(followerId)
+            } as PushOperator<Document>
           }
         }
       },
@@ -17,7 +19,9 @@ class BlockUserService {
         updateOne: {
           filter: { _id: followerId, blockedBy: { $ne: new mongoose.Types.ObjectId(userId) } },
           update: {
-            $push: { blockedBy: new mongoose.Types.ObjectId(userId) } as PushOperator<Document>
+            $push: {
+              blockedBy: new mongoose.Types.ObjectId(userId)
+            } as PushOperator<Document>
           }
         }
       }
@@ -30,7 +34,9 @@ class BlockUserService {
         updateOne: {
           filter: { _id: userId },
           update: {
-            $pull: { blocked: new mongoose.Types.ObjectId(followerId) } as PullOperator<Document>
+            $pull: {
+              blocked: new mongoose.Types.ObjectId(followerId)
+            } as PushOperator<Document>
           }
         }
       },
@@ -38,7 +44,7 @@ class BlockUserService {
         updateOne: {
           filter: { _id: followerId },
           update: {
-            $pull: { blockedBy: new mongoose.Types.ObjectId(userId) } as PullOperator<Document>
+            $pull: { blockedBy: new mongoose.Types.ObjectId(userId) } as PushOperator<Document>
           }
         }
       }

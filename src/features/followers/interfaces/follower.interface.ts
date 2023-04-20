@@ -40,7 +40,7 @@ export interface IFollowerJobData {
 }
 
 export interface IBlockedUserJobData {
-  followeeId?: string;
-  followerId?: string;
+  keyOne?: string;
+  keyTwo?: string;
   type?: string;
 }

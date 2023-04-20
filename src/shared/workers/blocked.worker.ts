@@ -3,13 +3,13 @@ import Logger from 'bunyan';
 import { config } from '@root/config';
 import { blockUserService } from '@services/db/block-user.services';
 
-const log: Logger = config.createLogger('blockedWorker');
+const log: Logger = config.createLogger('blockedUserWorker');
 
-class BlockedWorker {
+class BlockedUserWorker {
   async updateBlockedUserToDB(job: Job, done: DoneCallback): Promise<void> {
     try {
       const { keyOne, keyTwo, type } = job.data;
-      if (type === 'blocked') {
+      if (type === 'block') {
         await blockUserService.blockUser(keyOne, keyTwo);
       } else {
         await blockUserService.unblockUser(keyOne, keyTwo);
@@ -23,4 +23,4 @@ class BlockedWorker {
   }
 }
 
-export const blockedWorker: BlockedWorker = new BlockedWorker();
+export const blockedUserWorker: BlockedUserWorker = new BlockedUserWorker();
