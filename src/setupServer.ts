@@ -17,6 +17,7 @@ import { CustomError, IErrorResponse } from '@global/helpers/error-handler';
 import { SocketIOPostHandler } from '@sockets/post.socket';
 import { SocketIOFollowerHandler } from '@sockets/follower.socket';
 import { SocketIOUserHandler } from '@sockets/user.socket';
+import { SocketIONotificationHandler } from '@sockets/notification.socket';
 
 const SERVER_PORT = 5000;
 const log: Logger = config.createLogger('server'); //"server" will indentify where the log is coming from
@@ -109,8 +110,11 @@ export class ChattyServer {
     const postSocketHandler: SocketIOPostHandler = new SocketIOPostHandler(io);
     const followerSockectHandler: SocketIOFollowerHandler = new SocketIOFollowerHandler(io);
     const userSocketHandler: SocketIOUserHandler = new SocketIOUserHandler(io);
+    const notificationSocketHandler: SocketIONotificationHandler = new SocketIONotificationHandler();
+
     postSocketHandler.listen();
     followerSockectHandler.listen();
     userSocketHandler.listen();
+    notificationSocketHandler.listen(io);
   }
 }

@@ -20,7 +20,7 @@ const notificationSchema: Schema = new Schema({
 });
 
 // this is how you defined new methods on monogoose
-notificationSchema.methods.inserrtNotificationn = async function (body: INotification) {
+notificationSchema.methods.insertNotificationn = async function (body: INotification) {
   const {
     userTo,
     userFrom,
@@ -55,6 +55,7 @@ notificationSchema.methods.inserrtNotificationn = async function (body: INotific
     const notifications: INotificationDocument[] = await notificationService.getNotifications(userTo);
     return notifications;
   } catch (error) {
+    // add a logger
     return error;
   }
 };
